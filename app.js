@@ -1,19 +1,17 @@
 var express = require('express');
-var routerArr =  require('./public/router');
+//解析路由文件之后的模块
+var analysis = require('./analysis/analysis.js');
 var app = express();
-console.log();
-// import login from './public/controller/login.js'
-
-express.static('./')
+var engines = require('consolidate');
 
 
-let len = routerArr.length-1;
-for (;len >= 0; len--) {
-  let b = routerArr[len].split('^');
-  let c = b[1].split('=>');
-  app[b[0]](c[0],eval(c[1]));
-}
+app.set('views', __dirname + '/public/view');
+app.engine('html', engines.swig);
+app.set('view engine', 'html');
+console.log( __dirname);
+app.use(express.static(__dirname));
+analysis(app)
 
-var server = app.listen(3333, function() {
+var server = app.listen(5555, function() {
     console.log('Listening on port %d');
 });

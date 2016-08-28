@@ -1,0 +1,87 @@
+{% set moduleName = 'event' %}
+{% set pageName = 'index' %}
+<div class="wrap">
+    <div class="container">
+        <div class="clearfix mt30">
+            <h1 class="h3 mt0 mb20 pull-left">最新活动</h1>
+            <div class="dropdown pull-left ml10 hidden-xs">
+                <a href="javascript:void(0);" class="btn btn-link" data-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">
+                    <span id="cityWord"></span>
+                    <span class="caret"></span>
+                </a>
+                <ul id="cityFilter" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    {% if not city  %}
+                        <li class="active"><a href="javascript:void(0);" data-city="all">全部城市</a></li>
+                    {% else %}
+                        <li><a href="javascript:void(0);" data-city="all">全部城市</a></li>
+                    {% endif %}
+                    {% for val in cities %}
+                            <li class="active"><a href="javascript:void(0);" data-city="{{ val.id }}">{{ val.name }}</a>
+                            </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <div class="dropdown pull-left hidden-xs">
+                <a href="javascript:void(0);" class="btn btn-link" data-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">
+                    <span id="cateWord"></span>
+                    <span class="caret"></span>
+                </a>
+                <ul id="typeFilter" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    {% if not category  %}
+                        <li class="active"><a href="javascript:void(0);" data-cate="all">所有类型</a></li>
+                    {% else %}
+                        <li><a href="javascript:void(0);" data-cate="all">所有类型</a></li>
+                    {% endif %}
+                    {% for i, cat in categories %}
+                        <li class="active"><a href="javascript:void(0);" data-cate="{{ i }}">{{ cat }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="pull-right">
+                <a href="mailto:%6D%61%72%6B%65%74%69%6E%67%40%73%65%67%6D%65%6E%74%66%61%75%6C%74%2E%63%6F%6D?subject=申请合作 xxx 活动&body=活动内容：%0d%0a%0d%0a时间：%0d%0a%0d%0a联系方式：%0d%0a%0d%0a合作方式："
+                   class="btn btn-sm btn-default">活动合作</a>
+            </div>
+        </div>
+        <div class="row all-event-list">
+            <div class="col-md-6 col-sm-8 col-xs-12">
+                <div id="carousel-recommend-event" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        {% for i,rec in recommend %}
+                            <li data-target="#carousel-recommend-event" data-slide-to="{{ i }}"
+                                {% if i == 0 %}class="active"{% endif %}></li>
+                        {% endfor %}
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        {% for i,rec in recommend %}
+                            <div class="item {% if i ==0 %}active{% endif %}">
+                                <a href="{{ rec.url }}">
+                                    <img src="{{ rec.bannerUrl }}" alt="{{ rec.name }}" height="305"/>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-recommend-event" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-recommend-event" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-4 col-xs-12">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
